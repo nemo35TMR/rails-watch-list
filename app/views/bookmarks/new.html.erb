@@ -1,0 +1,16 @@
+<div class="container" style="max-width: 500px; margin-top: 80px;">
+  <h2 class="mb-4">Add a movie to <%= @list.name %></h2>
+  <%= simple_form_for [@list, @bookmark] do |f| %>
+    <%= f.association :movie, label: "Choose a movie" %>
+    <%= f.input :comment, label: "Comment", placeholder: "e.g. Recommended by John" %>
+    <%= f.submit "Add movie", class: "btn btn-success w-100 mt-2" %>
+  <% end %>
+</div>
+Et vérifie que ton BookmarksController a bien l'action new :
+
+ruby
+def new
+  @list = List.find(params[:list_id])
+  @bookmark = Bookmark.new
+end
+Ensuite va sur http://localhost:3000/lists/1/bookmarks/new pour tester !

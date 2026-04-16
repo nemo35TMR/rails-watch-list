@@ -1,0 +1,7 @@
+<div class="container" style="max-width: 500px; margin-top: 80px;">
+  <h2 class="mb-4">Create a new list</h2>
+  <%= simple_form_for @list do |f| %>
+    <%= f.input :name, label: "List name", placeholder: "e.g. Comedy, Classic..." %>
+    <%= f.submit "Create list", class: "btn btn-success w-100 mt-2" %>
+  <% end %>
+</div>

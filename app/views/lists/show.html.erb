@@ -1,0 +1,43 @@
+<!-- HERO -->
+<div style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('<%= @list.movies.first&.poster_url %>');
+            background-size: cover; background-position: center; height: 350px;"
+     class="d-flex align-items-center justify-content-center position-relative">
+  <h1 class="text-white fw-bold"><%= @list.name %></h1>
+  <span class="badge bg-warning text-dark position-absolute top-0 end-0 m-3" style="font-size: 1rem;">
+    <%= @list.movies.count %> movies
+  </span>
+</div>
+
+<!-- ADD MOVIE BUTTON -->
+<div class="container my-4 text-end">
+  <%= link_to "add a movie", new_list_bookmark_path(@list), class: "btn btn-success" %>
+</div>
+
+<!-- MOVIE CARDS -->
+<div class="container">
+  <div class="row g-4">
+    <% @list.bookmarks.each do |bookmark| %>
+      <div class="col-md-6">
+        <div class="card border-0 shadow-sm">
+          <%= image_tag bookmark.movie.poster_url, style: "width: 100%; height: 300px; object-fit: cover;" %>
+          <div class="card-body">
+            <h5 class="fw-bold">
+              <%= bookmark.movie.title %> &bull;
+              <%= bookmark.movie.rating %>
+              <span>⭐</span>
+            </h5>
+            <p class="text-muted small"><%= bookmark.movie.overview %></p>
+            <% if bookmark.comment.present? %>
+              <p><i class="fa-solid fa-quote-left"></i> <%= bookmark.comment %></p>
+            <% end %>
+            <div class="d-flex justify-content-end">
+              <%= link_to "delete", bookmark_path(bookmark),
+                    data: { turbo_method: :delete },
+                    class: "text-danger text-decoration-none" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
